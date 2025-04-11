@@ -1,6 +1,8 @@
-const supabaseUrl = 'https://wasjhyzmnbmfgmwgqfym.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indhc2poeXptbmJtZmdtd2dxZnltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQzMzQ0MTMsImV4cCI6MjA1OTkxMDQxM30.pf5IwTf40--nPZr_Msq_YQuC_pDgSA8Ck5X8HsvTDyw';
-    
+import { createClient } from '@supabase/supabase-js';
+
+// Asegúrate de reemplazar con tus credenciales en supabase-config.js
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ================= FUNCIONES UTILITARIAS =================
