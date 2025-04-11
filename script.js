@@ -1,198 +1,212 @@
-// ================= CONFIGURACIÓN INICIAL =================
-const DEBUG = true;
-const GITHUB_PAGES = window.location.host.includes('github.io');
-const STORAGE = GITHUB_PAGES ? localStorage : sessionStorage;
+import { createClient } from '@supabase/supabase-js';
 
-// Objeto para almacenar datos temporales
-const datosEncuesta = {
-    registro: null,
-    respuestas: null
-};
+// Asegúrate de reemplazar con tus credenciales en supabase-config.js
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ================= FUNCIONES UTILITARIAS =================
 
-/**
- * Muestra un mensaje de error en la interfaz
- * @param {HTMLElement} elemento - Elemento donde aparecerá el error
- * @param {string} mensaje - Mensaje a mostrar
- */
 function mostrarError(elemento, mensaje) {
-    const errorDiv = document.getElementById('error-message') || document.createElement('div');
-    errorDiv.id = 'error-message';
+    const errorDiv = document.getElementById('errorMessage') || document.createElement('div');
+    errorDiv.id = 'errorMessage';
     errorDiv.className = 'error-message';
     errorDiv.textContent = mensaje;
-    
-    if (!document.getElementById('error-message')) {
-    const container = document.querySelector('.container') || document.body;
-    container.insertBefore(errorDiv, container.firstChild);
-    }
+    errorDiv.style.display = 'block';
 
-  // Auto-ocultar después de 5 segundos (solo en GitHub Pages)
-    if (GITHUB_PAGES) {
-    setTimeout(() => errorDiv.remove(), 5000);
+    if (!document.getElementById('errorMessage')) {
+        elemento.parentNode.insertBefore(errorDiv, elemento.nextSibling);
     }
 }
 
-/**
- * Valida si un ticket ya fue registrado
- * @param {string} numTicket - Número de ticket a validar
- * @returns {Promise<{existe: boolean, datos?: any, mensaje?: string}>}
- */
+function ocultarError() {
+    const errorDiv = document.getElementById('errorMessage');
+    if (errorDiv) errorDiv.style.display = 'none';
+}
+
+// ================= VALIDACIÓN DE TICKETS =================
+
 async function validarTicket(numTicket) {
     try {
-    const { data, error } = await supabase
-        .from('encuestasCompletas')
-        .select('id, registro->numTicket, registro->fechaRegistro')
-        .eq('registro->>numTicket', numTicket)
-        .limit(1);
+        const { data, error } = await supabase
+            .from('registros')
+            .select('numTicket, fechaRegistro')
+            .eq('numTicket', numTicket)
+            .limit(1);
 
-    if (error) throw error;
-    
-    return {
-        existe: data?.length > 0,
-        datos: data?.[0],
-        mensaje: data?.length > 0 
-        ? `⚠ El ticket ${numTicket} ya fue registrado` 
-        : '✓ Ticket válido'
-    };
+        if (error) {
+            console.error("Error al validar ticket:", error);
+            return { existe: true, mensaje: "Error al verificar el ticket. Por favor intenta nuevamente." };
+        }
+
+        if (data && data.length > 0) {
+            return {
+                existe: true,
+                datos: data[0],
+                mensaje: `El ticket ${numTicket} ya fue registrado el ${new Date(data[0].fechaRegistro).toLocaleDateString()}`
+            };
+        }
+
+        return { existe: false };
     } catch (error) {
-    console.error("Error al validar ticket:", error);
-    return {
-        existe: true,
-        mensaje: "❌ Error al verificar el ticket. Recarga la página."
-    };
+        console.error("Error inesperado al validar ticket:", error);
+        return { existe: true, mensaje: "Error inesperado al verificar el ticket." };
     }
+}
+
+// Validación en tiempo real del ticket
+if (document.getElementById('numTicket')) {
+    document.getElementById('numTicket').addEventListener('blur', async function() {
+        const numTicket = this.value.trim();
+        const feedbackDiv = document.getElementById('ticketFeedback') || document.createElement('div');
+        feedbackDiv.id = 'ticketFeedback';
+
+        if (!document.getElementById('ticketFeedback')) {
+            this.parentNode.appendChild(feedbackDiv);
+        }
+
+        if (numTicket.length > 0) {
+            const validacion = await validarTicket(numTicket);
+            if (validacion.existe) {
+                feedbackDiv.textContent = '⚠ ' + validacion.mensaje;
+                feedbackDiv.style.color = 'red';
+                document.getElementById('submitBtn').disabled = true;
+            } else {
+                feedbackDiv.textContent = '✓ Ticket válido';
+                feedbackDiv.style.color = 'green';
+                document.getElementById('submitBtn').disabled = false;
+            }
+        } else {
+            feedbackDiv.textContent = ''; // Limpiar el mensaje si el campo está vacío
+        }
+    });
 }
 
 // ================= MANEJO DE FORMULARIOS =================
 
-// 📌 1. FORMULARIO DE REGISTRO (index.html)
+// Manejar registro (index.html)
 if (document.getElementById('registroForm')) {
-  // Validación en tiempo real del ticket
-    document.getElementById('numTicket').addEventListener('blur', async function() {
-    const numTicket = this.value.trim();
-    if (!numTicket) return;
-
-    const feedbackDiv = document.getElementById('ticketFeedback') || document.createElement('div');
-    feedbackDiv.id = 'ticketFeedback';
-    this.parentNode.appendChild(feedbackDiv);
-
-    const validacion = await validarTicket(numTicket);
-    feedbackDiv.textContent = validacion.mensaje;
-    feedbackDiv.style.color = validacion.existe ? 'red' : 'green';
-    document.getElementById('submitBtn').disabled = validacion.existe;
-    });
-
-  // Envío del formulario
     document.getElementById('registroForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        numTicket: document.getElementById('numTicket').value.trim(),
-        nombre: document.getElementById('nombre').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        telefono: document.getElementById('telefono').value.trim() || 'No proporcionado',
-        conociste: document.getElementById('conociste').value,
-        fechaRegistro: new Date().toISOString(),
-        origen: GITHUB_PAGES ? 'GitHub Pages' : 'Local'
-    };
+        e.preventDefault();
+        ocultarError();
 
-    // Validar ticket
-    const validacion = await validarTicket(formData.numTicket);
-    if (validacion.existe) {
-        mostrarError(document.getElementById('numTicket'), validacion.mensaje);
-        return;
-    }
+        const numTicket = document.getElementById('numTicket').value;
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        const telefono = document.getElementById('telefono').value || null;
+        const conociste = document.getElementById('conociste').value;
 
-    // Guardar en storage y redirigir
-    datosEncuesta.registro = formData;
-    STORAGE.setItem('datosRegistro', JSON.stringify(formData));
-    window.location.href = 'encuesta.html';
+        const validacionTicket = await validarTicket(numTicket);
+
+        if (validacionTicket.existe) {
+            mostrarError(document.getElementById('numTicket'), validacionTicket.mensaje);
+            document.getElementById('numTicket').focus();
+            return;
+        }
+
+        try {
+            const { data, error } = await supabase
+                .from('registros')
+                .insert([
+                    { numTicket, nombre, email, telefono, conociste }
+                ])
+                .select('id'); // Seleccionamos el ID del registro insertado
+
+            if (error) {
+                console.error("Error al guardar registro:", error);
+                mostrarError(document.getElementById('submitBtn'),
+                    "Ocurrió un error al registrar tus datos. Por favor intenta nuevamente.");
+                return;
+            }
+
+            // Guardar el ID del registro en sessionStorage para la encuesta
+            sessionStorage.setItem('registroId', data[0].id);
+
+            // Redirigir a la encuesta
+            window.location.href = 'encuesta.html';
+
+        } catch (error) {
+            console.error("Error inesperado al guardar registro:", error);
+            mostrarError(document.getElementById('submitBtn'),
+                "Ocurrió un error inesperado al registrar tus datos.");
+        }
     });
 }
 
-// 📌 2. FORMULARIO DE ENCUESTA (encuesta.html)
+// Manejar encuesta (encuesta.html)
 if (document.getElementById('encuestaForm')) {
-  // Recuperar datos del registro
-    const datosGuardados = STORAGE.getItem('datosRegistro');
-    if (!datosGuardados) {
-    mostrarError(document.querySelector('.container'), "❌ No se encontraron datos. Redirigiendo...");
-    setTimeout(() => window.location.href = 'index.html', 2000);
-    } else {
-    datosEncuesta.registro = JSON.parse(datosGuardados);
-    }
-
-  // Envío de la encuesta
     document.getElementById('encuestaForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Recoger respuestas
-    datosEncuesta.respuestas = {
-        p1: document.querySelector('input[name="p1"]:checked')?.value || 'No respondida',
-        p2: document.querySelector('input[name="p2"]:checked')?.value || 'No respondida',
-        p3: document.querySelector('input[name="p3"]:checked')?.value || 'No respondida',
-        p4: document.querySelector('input[name="p4"]:checked')?.value || 'No respondida',
-        p5: document.querySelector('input[name="p5"]:checked')?.value || 'No respondida',
-        p6: document.querySelector('input[name="p6"]:checked')?.value || 'No respondida',
-        p7: document.querySelector('input[name="p7"]:checked')?.value || 'No respondida',
-        p8: document.querySelector('input[name="p8"]:checked')?.value || 'No respondida',
-        sugerencias: document.querySelector('textarea[name="sugerencias"]').value || 'Sin sugerencias',
-        fechaEncuesta: new Date().toISOString()
-    };
+        e.preventDefault();
+        ocultarError();
 
-    try {
-      // Guardar en Supabase
-        const { error } = await supabase
-        .from('encuestasCompletas')
-        .insert([datosEncuesta]);
+        const registroId = sessionStorage.getItem('registroId');
+        if (!registroId) {
+            mostrarError(document.querySelector('form'),
+                "No se encontraron datos de registro. Por favor completa el formulario de registro primero.");
+            setTimeout(() => window.location.href = 'index.html', 3000);
+            return;
+        }
 
-        if (error) throw error;
+        const respuestas = {
+            registro_id: registroId,
+            p1: document.querySelector('input[name="p1"]:checked')?.value || null,
+            p2: document.querySelector('input[name="p2"]:checked')?.value || null,
+            p3: document.querySelector('input[name="p3"]:checked')?.value || null,
+            p4: document.querySelector('input[name="p4"]:checked')?.value || null,
+            p5: document.querySelector('input[name="p5"]:checked')?.value || null,
+            p6: document.querySelector('input[name="p6"]:checked')?.value || null,
+            p7: document.querySelector('input[name="p7"]:checked')?.value || null,
+            p8: document.querySelector('input[name="p8"]:checked')?.value || null,
+            sugerencias: document.querySelector('textarea[name="sugerencias"]').value || null,
+            fechaEncuesta: new Date().toISOString() // Puedes usar la hora del cliente o la del servidor al insertar
+        };
 
-      // Limpiar y redirigir
-        STORAGE.removeItem('datosRegistro');
-        window.location.href = 'cupon.html';
-    } catch (error) {
-        mostrarError(document.querySelector('.container'), "❌ Error al enviar. Intenta nuevamente.");
-        console.error("Error al guardar encuesta:", error);
-    }
+        try {
+            const { error } = await supabase
+                .from('respuestas_encuesta')
+                .insert([respuestas]);
+
+            if (error) {
+                console.error("Error al guardar encuesta:", error);
+                mostrarError(document.querySelector('form'),
+                    "Ocurrió un error al enviar tu encuesta. Por favor intenta nuevamente.");
+                return;
+            }
+
+            // Limpiar sessionStorage después de enviar la encuesta
+            sessionStorage.removeItem('registroId');
+
+            // Redirigir a página de agradecimiento
+            window.location.href = 'cupon.html';
+
+        } catch (error) {
+            console.error("Error inesperado al guardar encuesta:", error);
+            mostrarError(document.querySelector('form'),
+                "Ocurrió un error inesperado al enviar tu encuesta.");
+        }
     });
 }
 
-// 📌 3. PÁGINA DE CUPÓN (cupon.html)
+// Página de agradecimiento (cupon.html) - Lógica básica de ejemplo
 if (window.location.pathname.includes('cupon.html')) {
-    document.addEventListener('DOMContentLoaded', async () => {
-    STORAGE.removeItem('datosRegistro'); // Limpiar datos
+    document.addEventListener('DOMContentLoaded', () => {
+        const contenidoCuponDiv = document.getElementById('contenido-cupon');
+        const sinCuponesDiv = document.getElementById('sin-cupones');
+        const codigoCuponDiv = document.getElementById('codigo-cupon');
+        const disponiblesDiv = document.getElementById('disponibles');
 
-    try {
-      // Obtener un cupón disponible
-        const { data: cupon, error } = await supabase
-        .from('cupones')
-        .select('*')
-        .eq('usado', false)
-        .limit(1)
-        .single();
+        // Lógica de ejemplo para mostrar un cupón (necesitarás tu propia implementación)
+        const mostrarCupon = true; // Simula si hay cupones disponibles
 
-        if (error || !cupon) throw error;
-
-      // Mostrar cupón
-        document.getElementById('codigo-cupon').textContent = cupon.codigo;
-
-      // Actualizar como usado
-        await supabase
-        .from('cupones')
-        .update({ usado: true, fecha_uso: new Date().toISOString() })
-        .eq('id', cupon.id);
-
-      // Contar cupones restantes
-        const { count } = await supabase
-        .from('cupones')
-        .select('*', { count: 'exact', head: true })
-        .eq('usado', false);
-
-        document.getElementById('disponibles').textContent = `Cupones disponibles: ${count}`;
-    } catch (error) {
-        document.getElementById('contenido-cupon').style.display = 'none';
-        document.getElementById('sin-cupones').style.display = 'block';
-    }
+        if (mostrarCupon) {
+            const codigoGenerado = Math.random().toString(36).substring(2, 10).toUpperCase();
+            codigoCuponDiv.textContent = codigoGenerado;
+            disponiblesDiv.textContent = 'Cupones disponibles: Muchos (simulado)';
+            contenidoCuponDiv.style.display = 'block';
+            sinCuponesDiv.style.display = 'none';
+        } else {
+            contenidoCuponDiv.style.display = 'none';
+            sinCuponesDiv.style.display = 'block';
+        }
     });
 }
