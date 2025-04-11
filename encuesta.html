@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Satisfacción</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="img_header">
+        <img src="imagenes/logo_shanty.png">
+    </header>
+    <div class="titulo">
+        <h1>Encuesta de Satisfacción</h1>
+    </div>
+    <div class="container">
+        <form id="encuestaForm">
+            <div class="pregunta">
+                <p>¿Es la primera vez que nos visita?</p>
+                <div class="opciones_sn">
+                    <label><input type="radio" name="p1" value="si" required> Si </label>
+                    <label><input type="radio" name="p1" value="no"> No</label>
+                </div>
+            </div>
+            <div class="pregunta">
+                <p>¿Encontraste lo que buscabas?</p>
+                <div class="opciones_sn">
+                    <label><input type="radio" name="p2" value="si" required> Si</label>
+                    <label><input type="radio" name="p2" value="no"> No</label>
+                </div>
+            </div>
+            <div class="pregunta">
+                <p>¿Que tan satisfecho te encuentras con tu visita?</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p3" value="5" required> Muy satisfecho</label>
+                    <label><input type="radio" name="p3" value="4"> Satisfecho</label>
+                    <label><input type="radio" name="p3" value="3"> Neutral</label>
+                    <label><input type="radio" name="p3" value="2"> Insatisfecho</label>
+                    <label><input type="radio" name="p3" value="1"> Muy insatisfecho</label>
+                </div>
+            </div>
+            <div class="pregunta">
+                    <p>¿Recomendarias la Pasteleria Shanty?</p>
+                    <div class="opciones_sn">
+                        <label><input type="radio" name="p4" value="si" required> SI</label>
+                        <label><input type="radio" name="p4" value="no"> No</label>
+                    </div>
+            </div>
+            <div class="pregunta">
+                    <p>¿Que tan amable fue contigo el vendedor?</p>
+                    <div class="opciones">
+                        <label><input type="radio" name="p5" value="5" required> Muy satisfecho</label>
+                        <label><input type="radio" name="p5" value="4"> Satisfecho</label>
+                        <label><input type="radio" name="p5" value="3"> Neutral</label>
+                        <label><input type="radio" name="p5" value="2"> Insatisfecho</label>
+                        <label><input type="radio" name="p5" value="1"> Muy insatisfecho</label>
+                    </div>
+            </div>
+            <div class="pregunta">
+                <p>¿Te brindo asesoría el vendedor durante tu visita?</p>
+                <div class="opciones_sn">
+                    <label><input type="radio" name="p6" value="si" required> Si</label>
+                    <label><input type="radio" name="p6" value="2"> No</label>
+                </div>
+            </div>
+            <div class="pregunta">
+                <p>¿Que tanto interés mostró el vendedor por conocer tus necesidades y deseos?</p>
+                <div class="opciones" >
+                    <label><input type="radio" name="p7" value="5" required> Muy satisfecho</label>
+                    <label><input type="radio" name="p7" value="4"> Satisfecho</label>
+                    <label><input type="radio" name="p7" value="3"> Neutral</label>
+                    <label><input type="radio" name="p7" value="2"> Insatisfecho</label>
+                    <label><input type="radio" name="p7" value="1"> Muy insatisfecho</label>
+                </div>
+            </div>
+            <div class="pregunta">
+                <p>¿Qué tan satisfecho te encuentras con las instalaciones de Pasteleria Shanty?</p>
+                <div class="opciones" data-pregunta="p2">
+                    <label><input type="radio" name="p8" value="5" required> Muy satisfecho</label>
+                    <label><input type="radio" name="p8" value="4"> Satisfecho</label>
+                    <label><input type="radio" name="p8" value="3"> Neutral</label>
+                    <label><input type="radio" name="p8" value="2"> Insatisfecho</label>
+                    <label><input type="radio" name="p8" value="1"> Muy insatisfecho</label>
+                </div>
+            </div>
+            <div class="pregunta">
+                <p>¿Qué podríamos hacer para mejorar tu experiencia en Pastelería Shanty?</p>
+                <div class="opciones">
+                    <textarea name="sugerencias" rows="4" cols="50" placeholder="Escribe aquí tu sugerencia..." required></textarea>
+                </div>
+            </div>
+            <button type="submit">Enviar encuesta</button>
+        </form>
+    </div>
+    <footer class="img_footer">
+        <p>&copy; 2025 Pasteleria Shanty. Todos los derechos reservados.</p>
+        <ul>
+            <li><a href="/privacidad">Política de Privacidad</a></li>
+        </ul>
+        <div class="redes-sociales">
+            <a href="https://www.facebook.com/people/Shanty-pasteler%C3%ADa/61569050189254/?mibextid=wwXIfr&rdid=kA2kGGPC3J7z1I8B&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BpMJeCwk2%2F%3Fmibextid%3DwwXIfr"><img src="imagenes/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/pasteleria_shanty/"><img src="imagenes/instagram.png" alt="Instagram"></a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+

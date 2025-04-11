@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias por participar!</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="contenido-cupon" class="cupon">
+            <h2>¡Gracias por tu tiempo!</h2>
+            <p>Como agradecimiento, aquí tienes tu cupón de descuento:</p>
+            <div id="codigo-cupon" class="codigo-cupon">CARGANDO...</div>
+            <p id="disponibles">Cupones disponibles: CARGANDO...</p>
+            <p>Válido por 30 días. Presenta este código al finalizar tu compra.</p>
+        </div>
+        
+        <div id="sin-cupones" style="display: none;">
+            <h2>¡Gracias por participar!</h2>
+            <p>Lamentablemente los cupones de descuento se han agotado.</p>
+            <p>Apreciamos mucho tu tiempo y feedback.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

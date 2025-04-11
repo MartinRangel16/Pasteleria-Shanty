@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Encuesta de Satisfacción</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="img_header">
+        <img src="imagenes/logo_shanty.png">
+    </header>
+    <div class="titulo">
+        <h1>Registro para Encuesta de Satisfacción</h1>
+    </div>
+    <div class="container">
+        <form id="registroForm">
+            <div class="form-group">
+                <label for="numTicket">No de Ticket:</label>
+                <input type="number" id="numTicket" name="numTicket" min="0" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono (opcional):</label>
+                <input type="number" id="telefono" name="telefono" min="0" step="1">
+            </div>
+            <div class="form-group">
+                <label for="conociste">¿Cómo nos conociste?</label>
+                <select id="conociste" name="conociste" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="redes">Redes sociales</option>
+                    <option value="amigo">Recomendación de un amigo</option>
+                    <option value="busqueda">Búsqueda en internet</option>
+                    <option value="publicidad">Publicidad</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="terminos" name="terminos" required>
+                <label for="terminos">Acepto los términos y condiciones</label>
+            </div>
+            <button type="submit" id="submitBtn">Continuar a la encuesta</button>
+        </form>
+    
+    </div>
+        
+    <footer class="img_footer">
+        <p>&copy; 2025 Pasteleria Shanty. Todos los derechos reservados.</p>
+        <ul>
+            <li><a href="/privacidad">Política de Privacidad</a></li>
+        </ul>
+        <div class="redes-sociales">
+            <a href="https://www.facebook.com/people/Shanty-pasteler%C3%ADa/61569050189254/?mibextid=wwXIfr&rdid=kA2kGGPC3J7z1I8B&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BpMJeCwk2%2F%3Fmibextid%3DwwXIfr"><img src="imagenes/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/pasteleria_shanty/"><img src="imagenes/instagram.png" alt="Instagram"></a>
+        </div>
+    </footer>
+    <!-- Firebase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+    </body>
+</html>
