@@ -159,8 +159,9 @@ input[type="checkbox"]:checked {
     accent-color: rgb(211,34,60);
 }
 textarea[name="sugerencias"] {
+    resize: none;
     width: 100%;
-    box-sizing: border-box; /* Importante para que el padding y el borde no aumenten el ancho total */
+    box-sizing: border-box;
 }
 
 footer {
