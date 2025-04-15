@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encuesta de Satisfacción</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -19,70 +18,106 @@
         <form id="encuestaForm">
             <div class="pregunta">
                 <p>¿Es la primera vez que nos visita?</p>
-                <div class="opciones_sn">
+                <div class="opciones">
                     <label><input type="radio" name="p1" value="si" required> Si </label>
                     <label><input type="radio" name="p1" value="no"> No</label>
                 </div>
             </div>
             <div class="pregunta">
                 <p>¿Encontraste lo que buscabas?</p>
-                <div class="opciones_sn">
+                <div class="opciones">
                     <label><input type="radio" name="p2" value="si" required> Si</label>
                     <label><input type="radio" name="p2" value="no"> No</label>
                 </div>
             </div>
             <div class="pregunta">
                 <p>¿Que tan satisfecho te encuentras con tu visita?</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p3" value="5" required> Muy satisfecho</label>
-                    <label><input type="radio" name="p3" value="4"> Satisfecho</label>
-                    <label><input type="radio" name="p3" value="3"> Neutral</label>
-                    <label><input type="radio" name="p3" value="2"> Insatisfecho</label>
-                    <label><input type="radio" name="p3" value="1"> Muy insatisfecho</label>
+                <div class="rating-container">
+                    <div class="rating-labels">
+                        <span>Muy insatisfecho</span>
+                        <span>Insatisfecho</span>
+                        <span>Neutral</span>
+                        <span>Satisfecho</span>
+                        <span>Muy satisfecho</span>
+                    </div>
+                    <div class="rating-stars">
+                        <input type="radio" id="satisfaccion_visita_5" name="p3" value="5" required /><label for="satisfaccion_visita_5"></label>
+                        <input type="radio" id="satisfaccion_visita_4" name="p3" value="4" /><label for="satisfaccion_visita_4"></label>
+                        <input type="radio" id="satisfaccion_visita_3" name="p3" value="3" /><label for="satisfaccion_visita_3"></label>
+                        <input type="radio" id="satisfaccion_visita_2" name="p3" value="2" /><label for="satisfaccion_visita_2"></label>
+                        <input type="radio" id="satisfaccion_visita_1" name="p3" value="1" /><label for="satisfaccion_visita_1"></label>
+                    </div>
                 </div>
             </div>
             <div class="pregunta">
-                    <p>¿Recomendarias la Pasteleria Shanty?</p>
-                    <div class="opciones_sn">
-                        <label><input type="radio" name="p4" value="si" required> SI</label>
-                        <label><input type="radio" name="p4" value="no"> No</label>
-                    </div>
+                <p>¿Recomendarias la Pasteleria Shanty?</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p4" value="si" required> SI</label>
+                    <label><input type="radio" name="p4" value="no"> No</label>
+                </div>
             </div>
             <div class="pregunta">
-                    <p>¿Que tan amable fue contigo el vendedor?</p>
-                    <div class="opciones">
-                        <label><input type="radio" name="p5" value="5" required> Muy satisfecho</label>
-                        <label><input type="radio" name="p5" value="4"> Satisfecho</label>
-                        <label><input type="radio" name="p5" value="3"> Neutral</label>
-                        <label><input type="radio" name="p5" value="2"> Insatisfecho</label>
-                        <label><input type="radio" name="p5" value="1"> Muy insatisfecho</label>
+                <p>¿Que tan satisfecho te encuentras con tu visita?</p>
+                <div class="rating-container">
+                    <div class="rating-labels">
+                        <span>Muy insatisfecho</span>
+                        <span>Insatisfecho</span>
+                        <span>Neutral</span>
+                        <span>Satisfecho</span>
+                        <span>Muy satisfecho</span>
                     </div>
+                    <div class="rating-stars">
+                        <input type="radio" id="satisfaccion_asesoria_5" name="p5" value="5" required /><label for="satisfaccion_asesoria_5"></label>
+                        <input type="radio" id="satisfaccion_asesoria_4" name="p5" value="4" /><label for="satisfaccion_asesoria_4"></label>
+                        <input type="radio" id="satisfaccion_asesoria_3" name="p5" value="3" /><label for="satisfaccion_asesoria_3"></label>
+                        <input type="radio" id="satisfaccion_asesoria_2" name="p5" value="2" /><label for="satisfaccion_asesoria_2"></label>
+                        <input type="radio" id="satisfaccion_asesoria_1" name="p5" value="1" /><label for="satisfaccion_asesoria_1"></label>
+                    </div>
+                </div>
             </div>
             <div class="pregunta">
                 <p>¿Te brindo asesoría el vendedor durante tu visita?</p>
-                <div class="opciones_sn">
+                <div class="opciones">
                     <label><input type="radio" name="p6" value="si" required> Si</label>
-                    <label><input type="radio" name="p6" value="2"> No</label>
+                    <label><input type="radio" name="p6" value="no"> No</label>
                 </div>
             </div>
             <div class="pregunta">
                 <p>¿Que tanto interés mostró el vendedor por conocer tus necesidades y deseos?</p>
-                <div class="opciones" >
-                    <label><input type="radio" name="p7" value="5" required> Muy satisfecho</label>
-                    <label><input type="radio" name="p7" value="4"> Satisfecho</label>
-                    <label><input type="radio" name="p7" value="3"> Neutral</label>
-                    <label><input type="radio" name="p7" value="2"> Insatisfecho</label>
-                    <label><input type="radio" name="p7" value="1"> Muy insatisfecho</label>
+                <div class="rating-container">
+                    <div class="rating-labels">
+                        <span>Muy insatisfecho</span>
+                        <span>Insatisfecho</span>
+                        <span>Neutral</span>
+                        <span>Satisfecho</span>
+                        <span>Muy satisfecho</span>
+                    </div>
+                    <div class="rating-stars">
+                        <input type="radio" id="interes_vendedor_5" name="p7" value="5" required /><label for="interes_vendedor_5"></label>
+                        <input type="radio" id="interes_vendedor_4" name="p7" value="4" /><label for="interes_vendedor_4"></label>
+                        <input type="radio" id="interes_vendedor_3" name="p7" value="3" /><label for="interes_vendedor_3"></label>
+                        <input type="radio" id="interes_vendedor_2" name="p7" value="2" /><label for="interes_vendedor_2"></label>
+                        <input type="radio" id="interes_vendedor_1" name="p7" value="1" /><label for="interes_vendedor_1"></label>
+                    </div>
                 </div>
             </div>
             <div class="pregunta">
                 <p>¿Qué tan satisfecho te encuentras con las instalaciones de Pasteleria Shanty?</p>
-                <div class="opciones" data-pregunta="p2">
-                    <label><input type="radio" name="p8" value="5" required> Muy satisfecho</label>
-                    <label><input type="radio" name="p8" value="4"> Satisfecho</label>
-                    <label><input type="radio" name="p8" value="3"> Neutral</label>
-                    <label><input type="radio" name="p8" value="2"> Insatisfecho</label>
-                    <label><input type="radio" name="p8" value="1"> Muy insatisfecho</label>
+                <div class="rating-container">
+                    <div class="rating-labels">
+                        <span>Muy insatisfecho</span>
+                        <span>Insatisfecho</span>
+                        <span>Neutral</span>
+                        <span>Satisfecho</span>
+                        <span>Muy satisfecho</span>
+                    </div>
+                    <div class="rating-stars">
+                        <input type="radio" id="satisfaccion_instalaciones_5" name="p8" value="5" required /><label for="satisfaccion_instalaciones_5"></label>
+                        <input type="radio" id="satisfaccion_instalaciones_4" name="p8" value="4" /><label for="satisfaccion_instalaciones_4"></label>
+                        <input type="radio" id="satisfaccion_instalaciones_3" name="p8" value="3" /><label for="satisfaccion_instalaciones_3"></label>
+                        <input type="radio" id="satisfaccion_instalaciones_2" name="p8" value="2" /><label for="satisfaccion_instalaciones_2"></label>
+                        <input type="radio" id="satisfaccion_instalaciones_1" name="p8" value="1" /><label for="satisfaccion_instalaciones_1"></label>
+                    </div>
                 </div>
             </div>
             <div class="pregunta">
@@ -104,7 +139,12 @@
             <a href="https://www.instagram.com/pasteleria_shanty/"><img src="imagenes/instagram.png" alt="Instagram"></a>
         </div>
     </footer>
-    <script src="supabase-config.js"></script>
-    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="script.jss"></script>
+
 </body>
 </html>
+
