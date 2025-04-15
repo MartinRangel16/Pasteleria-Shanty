@@ -325,8 +325,11 @@ input[type="checkbox"] {
     display: flex;
     justify-content: center; /* Centra horizontalmente el contenido */
     align-items: flex-start; /* Ajusta según la alineación vertical deseada */
-    min-height: 100vh; /* Asegura que ocupe al menos la altura de la pantalla */
-    margin: 0 auto 30px auto; /* Elimina márgenes predeterminados */
+    width: 100%; /* Ocupa todo el ancho */
+    max-width: 600px; /* Ejemplo: Ancho máximo para celulares */
+    box-sizing: border-box; /* Incluye padding y border en el ancho */
+    margin: 0 auto; /* Centrar el contenedor */
+    padding: 10px; /* Elimina márgenes predeterminados */
     background-color: #f4f4f4; /* O el color de fondo que desees para esta página */
 }
 
