@@ -302,3 +302,115 @@ input[type="checkbox"] {
     justify-content: center;
     align-items: center;
 }
+/* ... tus estilos CSS rasca y gana  ... */
+.contenedor-pagina-cupon {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: flex-start; /* Ajusta según la alineación vertical deseada */
+    min-height: 100vh; /* Asegura que ocupe al menos la altura de la pantalla */
+    margin: 0 auto 30px auto; /* Elimina márgenes predeterminados */
+    background-color: #f4f4f4; /* O el color de fondo que desees para esta página */
+}
+
+.contenedor-cupon {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
+    width: 600px; /* O el ancho que desees para el contenedor del cupón */
+}
+
+
+#codigoCupon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: none; /* Inicialmente oculto */
+}
+
+#codigoValor {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+
+
+.instrucciones {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.detalles-cupon h2 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.detalles-cupon p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.boton-tienda {
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
+}
+
+.boton-tienda:hover {
+    background-color: #1e7e34;
+}
+
+/* ... tus estilos CSS existentes ... */
+
+.raspar-area {
+    position: relative;
+    margin-bottom: 20px;
+    width: 400px; /* Asegúrate de que tenga un ancho definido */
+    height: 200px; /* Asegúrate de que tenga una altura definida */
+    margin-left: auto; /* Centra horizontalmente */
+    margin-right: auto; /* Centra horizontalmente */
+}
+
+#mensajeCupon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em; /* Aumenta el tamaño del texto */
+    font-weight: bold;
+    color: #28a745;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.descuento {
+    color: #dc3545;
+}
+
+#rasparCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    cursor: grab;
+    z-index: 1;
+}
