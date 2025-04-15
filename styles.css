@@ -217,7 +217,12 @@ footer ul li a:hover {
     vertical-align: middle; 
     padding: 10px;
 }
-
+@media (max-width: 600px) {
+    textarea[name="sugerencias"] {
+        font-size: 0.9em; /* Un tamaño de fuente más pequeño si es necesario */
+        resize: none; /* O la opción de redimensionamiento que prefieras */
+    }
+}
 /* Media Queries para diferentes tamaños */
 @media (min-width: 600px) {
     .container {
@@ -230,6 +235,10 @@ footer ul li a:hover {
     
     .form-group label {
         font-size: 1.2rem;
+    }
+    textarea[name="sugerencias"] {
+        font-size: 0.9em; /* Un tamaño de fuente más pequeño si es necesario */
+        resize: none; /* O la opción de redimensionamiento que prefieras */
     }
 }
 
@@ -245,6 +254,10 @@ footer ul li a:hover {
     
     .titulo h1 {
         font-size: 1.8rem;
+    }
+    textarea[name="sugerencias"] {
+        font-size: 0.9em; /* Un tamaño de fuente más pequeño si es necesario */
+        resize: none; /* O la opción de redimensionamiento que prefieras */
     }
 }
 
