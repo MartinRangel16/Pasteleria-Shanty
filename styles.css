@@ -340,9 +340,9 @@ input[type="checkbox"] {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-top: 20px;
-    width: 100%; /* Ocupa el 100% del ancho de su contenedor (.contenedor-pagina-cupon) */
-    max-width: 600px; /* Establece un ancho máximo para pantallas más grandes */
-    box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+    width: 100%; /* Ocupa el 100% del ancho de su contenedor */
+    max-width: 600px; /* Ancho máximo */
+    box-sizing: border-box; /* Incluye padding y border en el ancho */
 }
 
 
@@ -402,10 +402,12 @@ input[type="checkbox"] {
 .raspar-area {
     position: relative;
     margin-bottom: 20px;
-    width: 400px; /* Asegúrate de que tenga un ancho definido */
-    height: 200px; /* Asegúrate de que tenga una altura definida */
-    margin-left: auto; /* Centra horizontalmente */
-    margin-right: auto; /* Centra horizontalmente */
+    width: 100%; /* Cambiar a 100% */
+    max-width: 400px; /* Mantener un ancho máximo */
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box; /* Asegurar que el padding no cause desbordamiento */
 }
 
 #mensajeCupon {
