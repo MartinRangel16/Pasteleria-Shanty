@@ -437,6 +437,5 @@ input[type="checkbox"] {
     border-radius: 5px;
     cursor: grab;
     z-index: 1;
-    background-color: #ccc;
     box-sizing: border-box; /* Importante también para el canvas */
 }
