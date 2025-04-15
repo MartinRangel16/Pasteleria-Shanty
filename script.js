@@ -196,3 +196,42 @@ if (window.location.pathname.includes('cupon.html')) {
     sessionStorage.removeItem('datosRegistro');
   });
 }
+//////////////////////////////////
+
+const canvas = document.getElementById('rasparCanvas');
+const ctx = canvas.getContext('2d');
+const imagenRascar = new Image();
+imagenRascar.src = 'imagenes/rasca_shanty.png'; // Reemplaza con la ruta de tu imagen
+
+imagenRascar.onload = () => {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    ctx.drawImage(imagenRascar, 0, 0, canvas.width, canvas.height);
+};
+
+function raspar(e) {
+    const rect = canvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    if (e.touches) {
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
+    }
+
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 15, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+canvas.addEventListener('mousemove', (e) => {
+    if (e.buttons !== 0) {
+        raspar(e);
+    }
+});
+
+canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    raspar(e);
+}, { passive: false });
