@@ -78,23 +78,87 @@ header {
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
+
+.rating-container {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 5px;
+}
+
+.rating-labels {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    text-align: center;
+    font-size: 0.8em;
+    color: #777;
+}
+
+.rating-stars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    direction: rtl; /* Mantenemos la inversión visual */
+}
+
+.rating-stars > input {
+    display: none;
+}
+
+.rating-stars > label {
+    color: #ccc;
+    font-size: 2em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.rating-stars > label:before {
+    content: '★';
+
+}
+
+/* Colorea la estrella seleccionada y todas las anteriores (a la izquierda visual) */
+.rating-stars > input:checked ~ label {
+    color: gold;
+}
+
+/* Asegura que la estrella seleccionada también se coloree */
+.rating-stars > input:checked + label {
+    color: gold;
+}
+
+/* Estilo para el hover (opcional, para retroalimentación visual) */
+.rating-stars > label:hover,
+.rating-stars > label:hover ~ label {
+    color: gold;
+}
+.opciones-personalizadas {
+    display: flex;
+    gap: 15px; /* Espacio entre las opciones */
+}
+.rating-stars > label:before {
+    content: '★';
+    text-shadow: 0.5px 0.5px 1px #f0f0f0,
+                    -0.5px -0.5px 1px #f0f0f0,
+                    0.5px -0.5px 1px #f0f0f0,
+                 -0.5px 0.5px 1px #f0f0f0; /* Sombra sutil alrededor */
+}
+
+.rating-stars > input:checked + label:before,
+.rating-stars > label:hover:before,
+.rating-stars > label:hover ~ label:before {
+    text-shadow: 0.5px 0.5px 1px gold,
+                    -0.5px -0.5px 1px gold,
+                    0.5px -0.5px 1px gold,
+                 -0.5px 0.5px 1px gold; /* Sombra sutil en dorado */
+}
+
 input[type="checkbox"]:checked {
     accent-color: rgb(211,34,60);
 }
 
-.opciones input{
-    display: none;
-}
-.opciones label {
-    font-size: 40px;
-    color: lightgray;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.opciones label.selected {
-    color: gold;
-}
 footer {
     color: #ffffff; 
     text-align: center; 
