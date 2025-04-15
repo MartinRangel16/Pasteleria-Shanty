@@ -340,7 +340,9 @@ input[type="checkbox"] {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-top: 20px;
-    width: 600px; /* O el ancho que desees para el contenedor del cupón */
+    width: 100%; /* Ocupa el 100% del ancho de su contenedor (.contenedor-pagina-cupon) */
+    max-width: 600px; /* Establece un ancho máximo para pantallas más grandes */
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
 }
 
 
