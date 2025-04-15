@@ -1,32 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Gracias por participar!</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    <div class="container">
-        <div id="contenido-cupon" class="cupon">
-            <h2>¡Gracias por tu tiempo!</h2>
-            <p>Como agradecimiento, aquí tienes tu cupón de descuento:</p>
-            <div id="codigo-cupon" class="codigo-cupon">CARGANDO...</div>
-            <p id="disponibles">Cupones disponibles: CARGANDO...</p>
-            <p>Válido por 30 días. Presenta este código al finalizar tu compra.</p>
-        </div>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Encuesta de Satisfacción</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    </head>
+    <body class=>
+        <header class="img_header">
+            <img src="imagenes/logo_shanty.png">
+        </header>
+        <body>
+            <div class="contenedor-pagina-cupon">
+                <div class="contenedor-cupon">
+                    <h1>¡Felicidades! Raspa y Gana tu Descuento</h1>
         
-        <div id="sin-cupones" style="display: none;">
-            <h2>¡Gracias por participar!</h2>
-            <p>Lamentablemente los cupones de descuento se han agotado.</p>
-            <p>Apreciamos mucho tu tiempo y feedback.</p>
-        </div>
-    </div>
-
+                    <div class="raspar-area">
+                        <h1 id="mensajeCupon">¡Cupón de <span class="descuento">$50 pesos</span>!</h1>
+                        <canvas id="rasparCanvas" width="300" height="150"></canvas>
+                    </div>
+        
+                    <div class="detalles-cupon">
+                        <h2>Detalles del Cupón</h2>
+                        <p><strong>Válido para:</strong> Todos los productos (o especifica los productos si aplica)</p>
+                        <p><strong>Fecha de validez:</strong> Hasta el [Fecha de Validez]</p>
+                    </div>
+                    <div id="terminos" class="terminos-condiciones">
+                        <h3>Términos y Condiciones</h3>
+                        <ul>
+                            <li>Este cupón es válido por un solo uso por persona.</li>
+                            <li>No acumulable con otras promociones o descuentos.</li>
+                            </ul>
+                        <p class="nota-legal">Al utilizar este cupón, usted acepta estos términos y condiciones.</p>
+                    </div>
+                    <button class="boton-tienda" onclick="window.location.href='https://maps.app.goo.gl/fgbVMU2uCrxaAwe96'">Ir a la Tienda</button>
+                </div>
+                
+            </div>
+            <footer class="img_footer">
+                <p>&copy; 2025 Pasteleria Shanty. Todos los derechos reservados.</p>
+                <ul>
+                    <li><a href="/privacidad">Política de Privacidad</a></li>
+                </ul>
+                <div class="redes-sociales">
+                    <a href="https://www.facebook.com/people/Shanty-pasteler%C3%ADa/61569050189254/?mibextid=wwXIfr&rdid=kA2kGGPC3J7z1I8B&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BpMJeCwk2%2F%3Fmibextid%3DwwXIfr"><img src="imagenes/facebook.png" alt="Facebook"></a>
+                    <a href="https://www.instagram.com/pasteleria_shanty/"><img src="imagenes/instagram.png" alt="Instagram"></a>
+                </div>
+            </footer>
+            <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
-</body>
+        </body>
 </html>
